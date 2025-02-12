@@ -38,6 +38,7 @@ const MailboxForm = (props) => {
           name="size"
           onChange={onChange}
           value={newBoxData.size}
+          // default value is what is in the iitial state .size, which is small 
         >
           <option value="small">Small</option>
           <option value="medium">Medium</option>

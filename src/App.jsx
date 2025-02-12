@@ -1,19 +1,42 @@
 import { useState } from "react";
 import "./App.css";
+import "./index.css";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import MailboxForm from "./components/MailboxForm/MailboxForm.jsx";
 import MailboxList from "./components/MailboxList/MailboxList.jsx";
 import MailboxDetails from "./components/MailboxDetails/MailboxDetails.jsx";
 import { Route, Routes } from "react-router";
+import LetterForm from "./components/LetterForm/LetterForm.jsx";
 
-const testState = [
-  { _id: 1, boxOwner: "James ", size: "small" },
-  { _id: 2, boxOwner: "Samatha ", size: "medium" },
-  { _id: 3, boxOwner: "Minny ", size: "large" },
-];
+// const testState = [
+//   { _id: 1, boxOwner: "James ", size: "small" },
+//   { _id: 2, boxOwner: "Samatha ", size: "medium" },
+//   { _id: 3, boxOwner: "Minny ", size: "large" },
+// ];
+
+// const letterTestState = [
+//   {
+//     _id: 1,
+//     recipient: "3",
+//     message: "This is a test letter ",
+//     sender: "Samantha",
+//   },
+//   {
+//     _id: 2,
+//     recipient: "1",
+//     message: "What an awesome letter test",
+//     sender: "Clair",
+//   },
+// ];
 
 const App = () => {
-  const [mailboxes, setMailboxes] = useState(testState); // reset to empty array after
+  const [mailboxes, setMailboxes] = useState([]);
+  const [letters, setLetters] = useState([]);
+
+  function addLetter(newLetter) {
+    letters._id = letters.length + 1;
+    setLetters([...letters, newLetter]);
+  }
 
   function addBox(newBoxData) {
     newBoxData._id = mailboxes.length + 1;
@@ -40,7 +63,11 @@ const App = () => {
         <Route path="/new-mailbox" element={<MailboxForm addBox={addBox} />} />
         <Route
           path="/mailboxes/:mailboxId"
-          element={<MailboxDetails mailboxes={mailboxes} />}
+          element={<MailboxDetails mailboxes={mailboxes} letters={letters} />}
+        />
+        <Route
+          path="/new-letter"
+          element={<LetterForm addLetter={addLetter} mailboxes={mailboxes} />}
         />
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
@@ -100,7 +127,4 @@ instead of
 </option>
 this allows the user to not elext anythign and default to small 
 also added a value={newboxdata.value} into the slect element 
-
-to do : 
-level up 
 */
